@@ -19,6 +19,7 @@ export default {
             colors: {
                 'dark-900': '#000003',
                 'primary': '#056C95',
+                'secondary': '#8F8F8F',
             }
         },
     },
