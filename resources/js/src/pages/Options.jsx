@@ -40,7 +40,7 @@ const Options = () => {
             >
                 What do you need help with?
             </p>
-            <Link className="w-full mt-4 secondary-gradient rounded-lg p-4 flex">
+            <Link to="/dashboard/faults" className="w-full mt-4 secondary-gradient rounded-lg p-4 flex">
                 <FaRegListAlt className="text-white size-8 mt-1" />
                 <div className="flex flex-col ml-4 font-inter">
                     <p className="text-white text-2xl">Error List</p>

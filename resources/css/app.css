@@ -16,6 +16,10 @@
     text-fill-color: transparent;
 }
 
+.icon-gradient {
+    background: linear-gradient(297.69deg, #FFFFFF 31.16%, #056C95 100%);
+}
+
 .primary-gradient {
     background: linear-gradient(90.74deg, #0B4658 0.64%, #041920 100%);
 }
