@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/Inter.ttf');
+    font-display: swap;
+}
+
+.primary-text-gradient {
+    background: linear-gradient(297.69deg, #FFFFFF 31.16%, #056C95 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.primary-gradient {
+    background: linear-gradient(90.74deg, #0B4658 0.64%, #041920 100%);
+}
+
+.secondary-gradient {
+    background: linear-gradient(91.48deg, #101010 0%, #0A0A0A 100%);
+}
