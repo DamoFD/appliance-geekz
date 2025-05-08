@@ -47,7 +47,7 @@ const Options = () => {
                     <p className="text-secondary">Shows common fault codes for your model</p>
                 </div>
             </Link>
-            <Link className="w-full mt-4 secondary-gradient rounded-lg p-4 flex">
+            <Link to="/dashboard/tests" className="w-full mt-4 secondary-gradient rounded-lg p-4 flex">
                 <MdOutlineScience className="text-white size-8 mt-1" />
                 <div className="flex flex-col ml-4 font-inter">
                     <p className="text-white text-2xl">Test Mode</p>

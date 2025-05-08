@@ -26,6 +26,53 @@ class AiController extends Controller
         "required" => ["faults"]
     ];
 
+    private $testSchema = [
+        "type" => "object",
+        "properties" => [
+            "steps" => [
+                "type" => "array",
+                "items" => [
+                    "type" => "object",
+                    "properties" => [
+                        "step" => ["type" => "integer"],
+                        "title" => ["type" => "string"],
+                        "description" => ["type" => "string"],
+                    ],
+                    "required" => ["step", "title", "description"],
+                ]
+            ]
+        ],
+        "required" => ["steps"]
+    ];
+
+    public function getTestMode(Request $request)
+    {
+        $validated = $request->validate([
+            'brand' => 'max:50',
+            'model' => 'max:50',
+            'serial_number' => 'max:50',
+        ]);
+
+        $prompt = "Explain to me step by step how to enter this {$validated['brand']} model {$validated['model']} into diagnostic mode, and how to navigate the diagnostics in detail. Use emojis in the title and description whenever necessary.";
+
+        $response = Http::withToken(env('OPENAI_API_KEY'))
+            ->post('https://api.openai.com/v1/chat/completions', [
+                'model' => 'gpt-4o-2024-08-06',
+                'messages' => [
+                    ['role' => 'system', 'content' => "You are an expert appliance repair technician. Return only valid JSON matching the schema: " . json_encode($this->testSchema)],
+                    ['role' => 'user', 'content' => $prompt],
+                ],
+                'response_format' => [
+                    'type' => 'json_object',
+                ]
+            ]);
+
+        $content = $response->json()['choices'][0]['message']['content'];
+        $json = json_decode($content, true);
+
+        return response()->json($json);
+    }
+
     public function getFaults(Request $request)
     {
         $validated = $request->validate([
@@ -34,7 +81,7 @@ class AiController extends Controller
             'serial_number' => 'max:50',
         ]);
 
-        $prompt = "Give 3 common fault codes for a {$validated['brand']} model {$validated['model']}.";
+        $prompt = "Return all known fault codes for a {$validated['brand']} model {$validated['model']}.";
 
         $response = Http::withToken(env('OPENAI_API_KEY'))
             ->post('https://api.openai.com/v1/chat/completions', [

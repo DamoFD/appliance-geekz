@@ -17,4 +17,5 @@ use App\Http\Controllers\AiController;
 
 Route::middleware('web', 'auth')->group(function () {
     Route::get('/api/faults', [AiController::class, 'getFaults']);
+    Route::get('/api/test-mode', [AiController::class, 'getTestMode']);
 });

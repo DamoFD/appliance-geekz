@@ -15,7 +15,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/dashboard/{any}', function () {
     return view('app');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified']);
 
 Route::post('/get-date', [DateController::class, 'getDate'])->name('getDate');
 Route::post('/get-ge-date', [DateController::class, 'getGEDate'])->name('getGEDate'); //[getGEDate]
