@@ -54,7 +54,7 @@ const Options = () => {
                     <p className="text-secondary">Step-by-step instructions to enter diagnostics</p>
                 </div>
             </Link>
-            <Link className="w-full mt-4 primary-gradient rounded-lg p-4 flex">
+            <Link to="/dashboard/chat" className="w-full mt-4 primary-gradient rounded-lg p-4 flex">
                 <BsChatLeftText className="text-white size-8 mt-1" />
                 <div className="flex flex-col ml-4 font-inter">
                     <p className="text-white text-2xl">Chat Help</p>

@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import Options from './pages/Options';
 import Faults from './pages/Faults';
 import Tests from './pages/Tests';
+import Chat from './pages/Chat';
 
 const router = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
         path: '/dashboard/tests',
         element: <Tests />,
     },
+    {
+        path: '/dashboard/chat',
+        element: <Chat />,
+    }
 ]);
 
 export default router;
