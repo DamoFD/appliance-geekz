@@ -4,59 +4,27 @@ import { IoArrowBack } from "react-icons/io5";
 import BlueSwirl from '/public/images/blue-swirl.png';
 import { FaArrowRight } from "react-icons/fa6";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-
-const defaultChat = [
-    {
-        role: 'assistant',
-        content: 'Hello there, my name is chatGPT, I am here to help you with your appliance needs.'
-    },
-    {
-        role: 'user',
-        content: 'I need help with my appliance.'
-    },
-    {
-        role: 'assistant',
-        content: 'What type of appliance are you looking for help with?'
-    },
-    {
-        role: 'user',
-        content: 'I need help with my fridge.'
-    },
-    {
-        role: 'assistant',
-        content: 'What is the model number of your fridge?'
-    },
-    {
-        role: 'user',
-        content: '123456789'
-    },
-    {
-        role: 'assistant',
-        content: 'What is the serial number of your fridge?'
-    },
-    {
-        role: 'user',
-        content: '123456789'
-    },
-    {
-        role: 'assistant',
-        content: 'Great, I will get back to you shortly.'
-    },
-    {
-        role: 'user',
-        content: 'Thanks'
-    }
-]
-
+import axiosClient from '../axios-client';
+import { useAppliance } from '../contexts/ApplianceContextProvider';
+import Markdown from 'react-markdown';
 
 const Chat = () => {
+    const { appliance } = useAppliance();
+
+    const defaultChat = [
+        {
+            role: 'assistant',
+            content: 'Hello there, my name is ChatGPT, How can I help with your appliance?  \n **Brand:** ' + (appliance.brand || 'Unknown') + '  \n **Model:** ' + (appliance.model || 'Unknown') + '  \n **Serial:** ' + (appliance.serial || 'Unknown'),
+        }
+    ]
+
     const navigate = useNavigate();
-    const [chat, setChat] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [chat, setChat] = useState(defaultChat);
+    const [loading, setLoading] = useState(false);
     const [input, setInput] = useState('');
 
     useEffect(() => {
-        getChat();
+        scrollToBottom();
     }, []);
 
     useEffect(() => {
@@ -67,26 +35,33 @@ const Chat = () => {
         window.scrollTo(0, document.body.scrollHeight);
     }
 
-    const getChat = () => {
+    const getChat = (chatData = chat) => {
         setLoading(true);
-        setChat(defaultChat);
-        setLoading(false);
+        setTimeout(() => {
+
+        axiosClient.post('/chat', {
+            brand: appliance.brand || 'Unknown',
+            model: appliance.model || 'Unknown',
+            serial: appliance.serial || 'Unknown',
+            chat: chatData,
+        })
+            .then(({data}) => {
+                setLoading(false);
+                const responseChat = [ ...chatData, { role: 'assistant', content: data.assistant } ]
+                setChat(responseChat);
+            })
+            .catch(() => {
+                setLoading(false);
+                console.error('error fetching chat');
+            });
+        }, 1000);
     }
 
     const onClick = ({ content }) => {
         const updatedChat = [...chat, { role: 'user', content }];
         setChat(updatedChat);
         setInput('');
-        setLoading(true);
-
-        setTimeout(() => {
-            const responseChat = [...updatedChat, {
-                role: 'assistant',
-                content: 'Hello there, my name is chatGPT, I am here to help you with your appliance needs.'
-            }];
-            setChat(responseChat);
-            setLoading(false);
-        }, 3000);
+        getChat(updatedChat);
     };
 
     const back = () => {
@@ -124,12 +99,18 @@ const Chat = () => {
                     onKeyDown={(e) => e.key === 'Enter' && onClick({ content: input })}
                 >
                 </textarea>
-                <button
-                    className="absolute bottom-3 right-3 size-8 rounded-full primary-gradient flex items-center justify-center"
-                    onClick={() => onClick({ content: input })}
-                >
-                    <FaArrowRight className="text-white" />
-                </button>
+                {loading ? (
+                    <div className="absolute bottom-3 right-3 size-8 rounded-full primary-gradient flex items-center justify-center">
+                        <AiOutlineLoading3Quarters className="text-white animate-spin" />
+                    </div>
+                ) : (
+                    <button
+                        className="absolute bottom-3 right-3 size-8 rounded-full primary-gradient flex items-center justify-center"
+                        onClick={() => onClick({ content: input })}
+                    >
+                        <FaArrowRight className="text-white" />
+                    </button>
+                )}
                 <div id="chat-container" />
             </div>
         </div>
@@ -151,10 +132,10 @@ const UserChatBubble = ({ message }) => {
 
 const AiChatBubble = ({ message }) => {
     return (
-        <div className="w-full flex items-center space-x-2">
+        <div className="w-full flex items-start space-x-2">
             <img src={BlueSwirl} alt="blue swirl" className="w-8" />
-            <div className="secondary-gradient p-4 rounded-lg text-white font-inter w-full">
-                <p>{message}</p>
+            <div className="secondary-gradient p-4 rounded-lg text-white font-inter w-full flex flex-col space-y-4 markdown-area">
+                <Markdown>{message}</Markdown>
             </div>
         </div>
     );

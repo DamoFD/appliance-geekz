@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\AiUsage;
 
 class AiController extends Controller
 {
@@ -57,7 +58,7 @@ class AiController extends Controller
 
         $response = Http::withToken(env('OPENAI_API_KEY'))
             ->post('https://api.openai.com/v1/chat/completions', [
-                'model' => 'gpt-4o-2024-08-06',
+                'model' => 'gpt-4o-mini-2024-07-18',
                 'messages' => [
                     ['role' => 'system', 'content' => "You are an expert appliance repair technician. Return only valid JSON matching the schema: " . json_encode($this->testSchema)],
                     ['role' => 'user', 'content' => $prompt],
@@ -66,6 +67,16 @@ class AiController extends Controller
                     'type' => 'json_object',
                 ]
             ]);
+
+        AiUsage::create([
+            'user_id' => auth()->id(),
+            'model' => 'gpt-4o-mini-2024-07-18',
+            'prompt' => $prompt,
+            'response' => $response->json()['choices'][0]['message']['content'],
+            'prompt_tokens' => $response->json()['usage']['prompt_tokens'] ?? 0,
+            'completion_tokens' => $response->json()['usage']['completion_tokens'] ?? 0,
+            'total_tokens' => $response->json()['usage']['total_tokens'] ?? 0,
+        ]);
 
         $content = $response->json()['choices'][0]['message']['content'];
         $json = json_decode($content, true);
@@ -85,7 +96,7 @@ class AiController extends Controller
 
         $response = Http::withToken(env('OPENAI_API_KEY'))
             ->post('https://api.openai.com/v1/chat/completions', [
-                'model' => 'gpt-4o-2024-08-06',
+                'model' => 'gpt-4o-mini-2024-07-18',
                 'messages' => [
                     ['role' => 'system', 'content' => "You are an expert appliance repair technician. Return only valid JSON matching the schema: " . json_encode($this->faultSchema)],
                     ['role' => 'user', 'content' => $prompt],
@@ -94,6 +105,16 @@ class AiController extends Controller
                     'type' => 'json_object',
                 ]
             ]);
+
+        AiUsage::create([
+            'user_id' => auth()->id(),
+            'model' => 'gpt-4o-mini-2024-07-18',
+            'prompt' => $prompt,
+            'response' => $response->json()['choices'][0]['message']['content'],
+            'prompt_tokens' => $response->json()['usage']['prompt_tokens'] ?? 0,
+            'completion_tokens' => $response->json()['usage']['completion_tokens'] ?? 0,
+            'total_tokens' => $response->json()['usage']['total_tokens'] ?? 0,
+        ]);
 
         $content = $response->json()['choices'][0]['message']['content'];
         $json = json_decode($content, true);
@@ -121,21 +142,43 @@ class AiController extends Controller
         ]);
         */
     }
-}
 
-
-    /**
-    public function ask(Request $request)
+    public function chat(Request $request)
     {
+        $validated = $request->validate([
+            'brand' => 'max:50',
+            'model' => 'max:50',
+            'serial' => 'max:50',
+            'chat' => 'required|array',
+            'chat.*.role' => 'required|string|in:user,assistant,system',
+            'chat.*.content' => 'required|string|max:10000',
+        ]);
+
         $response = Http::withToken(env('OPENAI_API_KEY'))
             ->post('https://api.openai.com/v1/chat/completions', [
-                'model' => 'gpt-4',
+                'model' => 'gpt-4o-mini-search-preview',
+                'web_search_options' => (object) [],
                 'messages' => [
-                    ['role' => 'system', 'content' => 'You are an expert appliance repair assistant.'],
-                    ['role' => 'user', 'content' => $request->input('question')],
+                    ['role' => 'system', 'content' => "You are an expert appliance repair technician, you are to use the web to find the following answers to my questions. Brand: {$validated['brand']}. Model: {$validated['model']}. Serial: {$validated['serial']}."],
+                    ...$validated['chat'],
                 ],
             ]);
 
-        dd($response->json()['choices'][0]['message']['content']);
+        AiUsage::create([
+            'user_id' => auth()->id(),
+            'model' => 'gpt-4o-mini-search-preview',
+            'prompt' => json_encode($validated['chat']),
+            'response' => $response->json()['choices'][0]['message']['content'],
+            'prompt_tokens' => $response->json()['usage']['prompt_tokens'] ?? 0,
+            'completion_tokens' => $response->json()['usage']['completion_tokens'] ?? 0,
+            'total_tokens' => $response->json()['usage']['total_tokens'] ?? 0,
+        ]);
+
+        $data = $response->json();
+        $message = $data['choices'][0]['message']['content'] ?? null;
+
+        return response()->json([
+            'assistant' => $message
+        ]);
     }
-*/
+}

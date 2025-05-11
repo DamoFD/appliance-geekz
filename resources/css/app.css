@@ -27,3 +27,8 @@
 .secondary-gradient {
     background: linear-gradient(91.48deg, #101010 0%, #0A0A0A 100%);
 }
+
+.markdown-area a {
+    color: #0f5C95;
+    text-decoration: underline;
+}
