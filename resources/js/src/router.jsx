@@ -7,23 +7,23 @@ import Chat from './pages/Chat';
 
 const router = createBrowserRouter([
     {
-        path: '/dashboard',
+        path: '/app',
         element: <Home />,
     },
     {
-        path: '/dashboard/options',
+        path: '/app/options',
         element: <Options />,
     },
     {
-        path: '/dashboard/faults',
+        path: '/app/faults',
         element: <Faults />,
     },
     {
-        path: '/dashboard/tests',
+        path: '/app/tests',
         element: <Tests />,
     },
     {
-        path: '/dashboard/chat',
+        path: '/app/chat',
         element: <Chat />,
     }
 ]);

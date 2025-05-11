@@ -6,16 +6,24 @@ use App\Http\Controllers\DateController;
 use App\Http\Controllers\AiController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
 });
 
 Route::get('/dashboard', function () {
-    return view('app');
+    return view('new-dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/dashboard/{any}', function () {
+Route::get('/app', function () {
+    return view('app');
+})->middleware(['auth', 'verified'])->name('app');
+
+Route::get('/app/{any}', function () {
     return view('app');
 })->middleware(['auth', 'verified']);
+
+Route::post('/waitlist', function () {
+    return;
+})->name('waitlist.submit');
 
 Route::post('/get-date', [DateController::class, 'getDate'])->name('getDate');
 Route::post('/get-ge-date', [DateController::class, 'getGEDate'])->name('getGEDate'); //[getGEDate]

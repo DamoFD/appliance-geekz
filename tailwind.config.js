@@ -20,6 +20,8 @@ export default {
                 'dark-900': '#000003',
                 'primary': '#056C95',
                 'secondary': '#8F8F8F',
+                'dark': '#000003',
+                'brand-green': '#19DF89',
             }
         },
     },

@@ -15,9 +15,9 @@
         <header x-data="{ open: false }" class="w-full z-50 absolute top-0 left-0 text-white font-inter">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-8 py-4 flex justify-between items-center">
                 <!-- Logo -->
-                <a href="/" class="text-2xl font-bold tracking-tight text-white">
+                <div class="text-2xl font-bold tracking-tight text-white">
                     APPLIANCE<span class="text-primary">AI.</span>
-                </a>
+                </div>
 
                 <!-- Desktop nav -->
                 <nav class="hidden md:flex space-x-8 items-center">
@@ -48,7 +48,7 @@
             </div>
 
             <!-- Mobile menu -->
-            <div x-show="open" x-transition class="md:hidden bg-black bg-opacity-50 backdrop-blur-md absolute top-full left-0 w-full py-6 space-y-4 px-6">
+            <div x-show="open" x-transition class="md:hidden bg-opacity-95 backdrop-blur-md absolute top-full left-0 w-full py-6 space-y-4 px-6">
                 <a href="#how-it-works" class="block text-lg hover:text-primary transition" @click="open = false">How it works</a>
                 <a href="#features" class="block text-lg hover:text-primary transition" @click="open = false">Features</a>
                 <a href="#faq" class="block text-lg hover:text-primary transition" @click="open = false">FAQ</a>

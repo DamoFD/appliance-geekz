@@ -32,3 +32,10 @@
     color: #0f5C95;
     text-decoration: underline;
 }
+
+.hero-chat {
+    background: #08254A;
+    border: 1px solid #1796BD;
+    box-shadow: 0px 0px 4px 2px #0FB8EB;
+    border-radius: 10px;
+}
