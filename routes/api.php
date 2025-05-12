@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AiController;
+use App\Http\Controllers\FeedbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,5 @@ Route::middleware('web', 'auth')->group(function () {
     Route::get('/api/faults', [AiController::class, 'getFaults']);
     Route::get('/api/test-mode', [AiController::class, 'getTestMode']);
     Route::post('/api/chat', [AiController::class, 'chat']);
+    Route::post('/api/feedback', [FeedbackController::class, 'store']);
 });

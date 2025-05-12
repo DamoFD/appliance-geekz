@@ -15,6 +15,9 @@ const Tests = () => {
     const { appliance } = useAppliance();
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(true);
+    const [feedBackVisible, setFeedBackVisible] = useState(false);
+    const [aiUsageId, setAiUsageId] = useState('');
+    const [feedbackLoading, setFeedbackLoading] = useState(false);
 
     useEffect(() => {
         getSteps();
@@ -32,10 +35,27 @@ const Tests = () => {
             .then(({data}) => {
                 setLoading(false);
                 setResponse(data.assistant);
+                setAiUsageId(data.ai_usage_id);
+                setFeedBackVisible(true);
             })
             .catch(() => {
                 setLoading(false);
                 console.error('error fetching test mode');
+            });
+    }
+
+    const sendFeedback = (feedback) => {
+        setFeedbackLoading(true);
+        axiosClient.post('/feedback', {
+            ai_usage_id: aiUsageId,
+            feedback: feedback
+        })
+            .then(({data}) => {
+                setFeedBackVisible(false);
+            })
+            .catch(() => {
+                console.error('error sending feedback');
+                setFeedBackVisible(false);
             });
     }
 
@@ -59,6 +79,20 @@ const Tests = () => {
                     </div>
                 )
             }
+            {feedBackVisible && (
+                <div className="bg-gray-800 p-4 rounded-lg fixed bottom-4 right-4 z-10 flex flex-col items-end space-y-2">
+                    <p className="font-inter text-white font-bold cursor-pointer" onClick={() => setFeedBackVisible(false)}>X</p>
+                    <p className="font-inter text-white">Was this response helpful?</p>
+                    <div className="flex items-center justify-between mt-2 w-full">
+                        <button disabled={feedbackLoading} onClick={() => sendFeedback('yes')} className="bg-blue-500 text-white py-2 px-4 rounded-lg">
+                            {feedbackLoading ? 'Sending...' : 'Yes'}
+                        </button>
+                        <button disabled={feedbackLoading} onClick={() => sendFeedback('no')} className="bg-red-500 text-white py-2 px-4 rounded-lg">
+                            {feedbackLoading ? 'Sending...' : 'No'}
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

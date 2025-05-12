@@ -66,7 +66,7 @@ class AiController extends Controller
                 ],
             ]);
 
-        AiUsage::create([
+        $aiUsage = AiUsage::create([
             'user_id' => auth()->id(),
             'model' => 'gpt-4o-mini-search-preview',
             'prompt' => $prompt,
@@ -80,7 +80,8 @@ class AiController extends Controller
         $message = $data['choices'][0]['message']['content'] ?? null;
 
         return response()->json([
-            'assistant' => $message
+            'assistant' => $message,
+            'ai_usage_id' => $aiUsage->id
         ]);
     }
 
@@ -106,7 +107,7 @@ class AiController extends Controller
                 ]
             ]);
 
-        AiUsage::create([
+        $aiUsage = AiUsage::create([
             'user_id' => auth()->id(),
             'model' => 'gpt-4o-mini-2024-07-18',
             'prompt' => $prompt,
@@ -119,7 +120,10 @@ class AiController extends Controller
         $content = $response->json()['choices'][0]['message']['content'];
         $json = json_decode($content, true);
 
-        return response()->json($json);
+        return response()->json([
+            'faults' => $json,
+            'ai_usage_id' => $aiUsage->id
+        ]);
 
         /**return response()->json([
             'faults' => [
@@ -164,7 +168,7 @@ class AiController extends Controller
                 ],
             ]);
 
-        AiUsage::create([
+        $aiUsage = AiUsage::create([
             'user_id' => auth()->id(),
             'model' => 'gpt-4o-mini-search-preview',
             'prompt' => json_encode($validated['chat']),
@@ -178,7 +182,8 @@ class AiController extends Controller
         $message = $data['choices'][0]['message']['content'] ?? null;
 
         return response()->json([
-            'assistant' => $message
+            'assistant' => $message,
+            'ai_usage_id' => $aiUsage->id
         ]);
     }
 }
