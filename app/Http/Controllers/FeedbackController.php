@@ -7,6 +7,17 @@ use App\Models\Feedback;
 
 class FeedbackController extends Controller
 {
+    public function index()
+    {
+        $feedbacks = Feedback::all()->sortByDesc('created_at');
+        return view('admin-feedback', compact('feedbacks'));
+    }
+
+    public function show(Feedback $feedback)
+    {
+        return view('admin-show-feedback', compact('feedback'));
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

@@ -15,4 +15,9 @@ class AiUsage extends Model
         'total_tokens',
         'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

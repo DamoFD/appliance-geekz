@@ -7,6 +7,7 @@ use App\Http\Controllers\AiController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\WaitlistController;
 use App\Http\Middleware\CheckAdmin;
+use App\Http\Controllers\FeedbackController;
 
 Route::get('/', function () {
     return view('landing');
@@ -24,6 +25,8 @@ Route::get('/admin/new-user/{user}', [AdminController::class, 'edit'])->middlewa
 Route::put('/admin/new-user/{user}', [AdminController::class, 'update'])->middleware(['auth', CheckAdmin::class])->name('admin.update-user');
 Route::delete('/admin/new-user/{user}', [AdminController::class, 'destroy'])->middleware(['auth', CheckAdmin::class])->name('admin.destroy-user');
 Route::get('/admin/waitlist', [AdminController::class, 'waitlist'])->middleware(['auth', CheckAdmin::class])->name('admin.waitlist');
+Route::get('/admin/feedback', [FeedbackController::class, 'index'])->middleware(['auth', CheckAdmin::class])->name('admin.feedback');
+Route::get('/admin/feedback/{feedback}', [FeedbackController::class, 'show'])->middleware(['auth', CheckAdmin::class])->name('admin.show-feedback');
 
 Route::get('/app', function () {
     return view('app');

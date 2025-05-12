@@ -47,7 +47,7 @@
                 </div>
                 <div class="bg-[#1a2339] rounded-lg p-6">
                     <p class="text-gray-400 mb-1">Total Cost</p>
-                    <p class="text-2xl font-semibold text-blue-400">${{ round($prompt_cost + $search_cost, 2) }}</p>
+                    <p class="text-2xl font-semibold text-blue-400">${{ $prompt_cost + $search_cost }}</p>
                 </div>
             </div>
 
