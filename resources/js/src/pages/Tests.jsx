@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useAppliance } from '../contexts/ApplianceContextProvider';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IoArrowBack } from "react-icons/io5";
-import { FaArrowRight } from "react-icons/fa";
 import axiosClient from '../axios-client';
+import Markdown from 'react-markdown';
+import BlueSwirl from '/public/images/blue-swirl.png';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Tests = () => {
     const navigate = useNavigate();
@@ -11,7 +13,7 @@ const Tests = () => {
         navigate(-1);
     }
     const { appliance } = useAppliance();
-    const [steps, setSteps] = useState([]);
+    const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -29,11 +31,11 @@ const Tests = () => {
         })
             .then(({data}) => {
                 setLoading(false);
-                setSteps(data.steps);
+                setResponse(data.assistant);
             })
             .catch(() => {
                 setLoading(false);
-                console.error('error fetching steps');
+                console.error('error fetching test mode');
             });
     }
 
@@ -46,26 +48,14 @@ const Tests = () => {
                 Enter<br />Test Mode
             </h1>
             {loading ? (
-                <p className="text-white font-inter text-lg primary-text-gradient mt-4">Loading...</p>
+                <div className="w-full flex items-center space-x-2 mt-4">
+                    <img src={BlueSwirl} alt="blue swirl" className="w-8" />
+                    <AiOutlineLoading3Quarters className="text-white animate-spin" />
+                    <p className="font-inter text-secondary">Analyzing manuals... Please wait.</p>
+                </div>
             ) : (
-                    <div>
-                        {steps.map((step, index) => {
-
-                            return (
-                                <div className="flex gap-4 text-white mt-8 w-full font-inter" key={index}>
-                                    <p className="primary-text-gradient font-bold text-3xl">{step.step}.</p>
-                                    <div className="flex flex-col gap-2">
-                                        <p className="font-bold text-3xl">{step.title}</p>
-                                        <p className="text-secondary">{step.description}</p>
-                                        <div />
-                                        <Link to="/app/chat?test-mode=true" className="text-[#1796BD] flex items-center cursor-pointer">
-                                            <p className="underline">Ask about this step</p>
-                                            <FaArrowRight className="size-4 ml-2" />
-                                        </Link>
-                                    </div>
-                                </div>
-                            );
-                        })}
+                    <div className="text-white font-inter w-full flex flex-col space-y-4 markdown-area mt-4">
+                        <Markdown>{response}</Markdown>
                     </div>
                 )
             }

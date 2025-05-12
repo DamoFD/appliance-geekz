@@ -5,6 +5,8 @@ import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import { useAppliance } from '../contexts/ApplianceContextProvider';
 import { Link } from 'react-router-dom';
+import BlueSwirl from '/public/images/blue-swirl.png';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import {
   FaRegLightbulb,        // idea / electrical issue
   FaTools,               // classic repair tools
@@ -126,7 +128,11 @@ const Faults = () => {
                 />
             </div>
             {loading ? (
-                <p className="text-white font-inter text-lg primary-text-gradient mt-4">Loading...</p>
+                <div className="w-full flex items-center space-x-2 mt-4">
+                    <img src={BlueSwirl} alt="blue swirl" className="w-8" />
+                    <AiOutlineLoading3Quarters className="text-white animate-spin" />
+                    <p className="font-inter text-secondary">Analyzing manuals... Please wait.</p>
+                </div>
             ) : (
                     <div>
                         {filteredFaults.map((fault, index) => {

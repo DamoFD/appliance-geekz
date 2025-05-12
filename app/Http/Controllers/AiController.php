@@ -54,23 +54,21 @@ class AiController extends Controller
             'serial_number' => 'max:50',
         ]);
 
-        $prompt = "Explain to me step by step how to enter this {$validated['brand']} model {$validated['model']} into diagnostic mode, and how to navigate the diagnostics in detail. Use emojis in the title and description whenever necessary.";
+        $prompt = "Use the web and explain to me step by step how to enter this {$validated['brand']} model {$validated['model']} into diagnostic mode, and how to navigate the diagnostics in detail. Use emojis in the title and descriptions to help convey your message.";
 
         $response = Http::withToken(env('OPENAI_API_KEY'))
             ->post('https://api.openai.com/v1/chat/completions', [
-                'model' => 'gpt-4o-mini-2024-07-18',
+                'model' => 'gpt-4o-mini-search-preview',
+                'web_search_options' => (object) [],
                 'messages' => [
-                    ['role' => 'system', 'content' => "You are an expert appliance repair technician. Return only valid JSON matching the schema: " . json_encode($this->testSchema)],
+                    ['role' => 'system', 'content' => "You are an expert appliance repair technician"],
                     ['role' => 'user', 'content' => $prompt],
                 ],
-                'response_format' => [
-                    'type' => 'json_object',
-                ]
             ]);
 
         AiUsage::create([
             'user_id' => auth()->id(),
-            'model' => 'gpt-4o-mini-2024-07-18',
+            'model' => 'gpt-4o-mini-search-preview',
             'prompt' => $prompt,
             'response' => $response->json()['choices'][0]['message']['content'],
             'prompt_tokens' => $response->json()['usage']['prompt_tokens'] ?? 0,
@@ -78,10 +76,12 @@ class AiController extends Controller
             'total_tokens' => $response->json()['usage']['total_tokens'] ?? 0,
         ]);
 
-        $content = $response->json()['choices'][0]['message']['content'];
-        $json = json_decode($content, true);
+        $data = $response->json();
+        $message = $data['choices'][0]['message']['content'] ?? null;
 
-        return response()->json($json);
+        return response()->json([
+            'assistant' => $message
+        ]);
     }
 
     public function getFaults(Request $request)
