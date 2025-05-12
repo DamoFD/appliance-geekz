@@ -33,6 +33,9 @@
                         <a href={{ route('login') }} class="hover:text-primary transition">Login</a>
                         <a href={{ route('register') }} class="hover:text-primary transition">Register</a>
                     @endif
+                    @if (auth()->user()->isAdmin())
+                        <a href={{ route('admin.new-user') }} class="hover:text-primary transition">Add User</a>
+                    @endif
                     <a href={{ route('dashboard') }} class="px-4 py-2 rounded-lg bg-primary text-white hover:bg-opacity-90 transition">Try It</a>
                 </nav>
 
@@ -60,6 +63,9 @@
                 @else
                     <a href={{ route('login') }} class="block text-lg hover:text-primary transition" @click="open = false">Login</a>
                     <a href={{ route('register') }} class="block text-lg hover:text-primary transition" @click="open = false">Register</a>
+                @endif
+                @if (auth()->user()->isAdmin())
+                    <a href={{ route('admin.new-user') }} class="block text-lg hover:text-primary transition" @click="open = false">Add User</a>
                 @endif
                 <a href={{ route('dashboard') }} class="block text-lg bg-primary px-4 py-2 rounded-lg text-center text-white hover:bg-opacity-90 transition" @click="open = false">Try It</a>
             </div>

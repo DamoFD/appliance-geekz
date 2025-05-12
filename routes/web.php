@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DateController;
 use App\Http\Controllers\AiController;
+use App\Http\Controllers\AdminController;
+use App\Http\Middleware\CheckAdmin;
 
 Route::get('/', function () {
     return view('landing');
@@ -12,6 +14,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('new-dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/admin/new-user', [AdminController::class, 'create'])->middleware(['auth', CheckAdmin::class])->name('admin.new-user');
 
 Route::get('/app', function () {
     return view('app');
