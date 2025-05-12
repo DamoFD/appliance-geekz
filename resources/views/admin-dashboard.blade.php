@@ -11,6 +11,19 @@
                 <a href="{{ route('admin.new-user') }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold">Add User</a>
             </div>
 
+            @if(session('success'))
+                <div
+                    x-data="{ show: true }"
+                    x-init="setTimeout(() => show = false, 4000)"
+                    x-show="show"
+                    x-transition
+                    class="bg-green-600 text-white px-4 py-3 rounded-lg shadow-md w-full"
+                >
+                    {{ session('success') }}
+                </div>
+            @endif
+
+
             <!-- User Table -->
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
