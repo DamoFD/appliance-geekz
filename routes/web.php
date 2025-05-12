@@ -15,7 +15,12 @@ Route::get('/dashboard', function () {
     return view('new-dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth', CheckAdmin::class])->name('admin.index');
 Route::get('/admin/new-user', [AdminController::class, 'create'])->middleware(['auth', CheckAdmin::class])->name('admin.new-user');
+Route::post('/admin/new-user', [AdminController::class, 'store'])->middleware(['auth', CheckAdmin::class])->name('admin.store-user');
+Route::get('/admin/new-user/{user}', [AdminController::class, 'edit'])->middleware(['auth', CheckAdmin::class])->name('admin.edit-user');
+Route::put('/admin/new-user/{user}', [AdminController::class, 'update'])->middleware(['auth', CheckAdmin::class])->name('admin.update-user');
+Route::delete('/admin/new-user/{user}', [AdminController::class, 'destroy'])->middleware(['auth', CheckAdmin::class])->name('admin.destroy-user');
 
 Route::get('/app', function () {
     return view('app');
