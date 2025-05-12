@@ -32,6 +32,9 @@ const Chat = () => {
     const [chat, setChat] = useState(defaultChat);
     const [loading, setLoading] = useState(false);
     const [input, setInput] = useState('');
+    const [feedBackVisible, setFeedBackVisible] = useState(false);
+    const [aiUsageId, setAiUsageId] = useState('');
+    const [feedbackLoading, setFeedbackLoading] = useState(false);
 
     useEffect(() => {
         scrollToBottom();
@@ -49,7 +52,6 @@ const Chat = () => {
 
     const getChat = (chatData = chat) => {
         setLoading(true);
-        setTimeout(() => {
 
         axiosClient.post('/chat', {
             brand: appliance.brand || 'Unknown',
@@ -61,12 +63,28 @@ const Chat = () => {
                 setLoading(false);
                 const responseChat = [ ...chatData, { role: 'assistant', content: data.assistant } ]
                 setChat(responseChat);
+                setFeedBackVisible(true);
+                setAiUsageId(data.ai_usage_id);
             })
             .catch(() => {
                 setLoading(false);
                 console.error('error fetching chat');
             });
-        }, 1000);
+    }
+
+    const sendFeedback = (feedback) => {
+        setFeedbackLoading(true);
+        axiosClient.post('/feedback', {
+            ai_usage_id: aiUsageId,
+            feedback: feedback
+        })
+            .then(({data}) => {
+                setFeedBackVisible(false);
+            })
+            .catch(() => {
+                console.error('error sending feedback');
+                setFeedBackVisible(false);
+            });
     }
 
     const onClick = ({ content }) => {
@@ -125,6 +143,20 @@ const Chat = () => {
                 )}
                 <div id="chat-container" />
             </div>
+            {feedBackVisible && (
+                <div className="bg-gray-800 p-4 rounded-lg fixed bottom-36 right-4 z-10 flex flex-col items-end space-y-2">
+                    <p className="font-inter text-white font-bold cursor-pointer" onClick={() => setFeedBackVisible(false)}>X</p>
+                    <p className="font-inter text-white">Was this response helpful?</p>
+                    <div className="flex items-center justify-between mt-2 w-full">
+                        <button disabled={feedbackLoading} onClick={() => sendFeedback('yes')} className="bg-blue-500 text-white py-2 px-4 rounded-lg">
+                            {feedbackLoading ? 'Sending...' : 'Yes'}
+                        </button>
+                        <button disabled={feedbackLoading} onClick={() => sendFeedback('no')} className="bg-red-500 text-white py-2 px-4 rounded-lg">
+                            {feedbackLoading ? 'Sending...' : 'No'}
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
