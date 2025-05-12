@@ -57,7 +57,7 @@ const Home = () => {
             </div>
             <button
                 className="w-full py-2 rounded-lg mt-10 font-inter text-white primary-gradient text-xl"
-                onClick={() => navigate('/dashboard/options')}
+                onClick={() => navigate('/app/options')}
             >
                 Continue
             </button>

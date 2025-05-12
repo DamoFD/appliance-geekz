@@ -139,7 +139,7 @@ const Faults = () => {
                                     <Icon className="size-6 text-[#1796BD]" />
                                     <p className="text-secondary">{fault.solution}</p>
                                     <div />
-                                    <Link className="text-[#1796BD] flex items-center cursor-pointer">
+                                    <Link to={`/app/chat?code=${fault.code}`} className="text-[#1796BD] flex items-center cursor-pointer">
                                         <p className="underline">Chat about this error</p>
                                         <FaArrowRight className="size-4 ml-2" />
                                     </Link>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { IoArrowBack } from "react-icons/io5";
 import BlueSwirl from '/public/images/blue-swirl.png';
 import { FaArrowRight } from "react-icons/fa6";
@@ -10,13 +10,19 @@ import Markdown from 'react-markdown';
 
 const Chat = () => {
     const { appliance } = useAppliance();
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const faultCode = query.get('code');
 
     const defaultChat = [
         {
             role: 'assistant',
             content: 'Hello there, my name is ChatGPT, How can I help with your appliance?  \n **Brand:** ' + (appliance.brand || 'Unknown') + '  \n **Model:** ' + (appliance.model || 'Unknown') + '  \n **Serial:** ' + (appliance.serial || 'Unknown'),
-        }
-    ]
+        },
+        ...(faultCode
+                ? [{ role: 'user', content: `What does the error code ${faultCode} mean, and what are the causes of this fault?` }]
+                : [])
+    ];
 
     const navigate = useNavigate();
     const [chat, setChat] = useState(defaultChat);
@@ -25,6 +31,7 @@ const Chat = () => {
 
     useEffect(() => {
         scrollToBottom();
+        if (faultCode) getChat(defaultChat);
     }, []);
 
     useEffect(() => {

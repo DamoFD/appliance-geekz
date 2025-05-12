@@ -40,21 +40,21 @@ const Options = () => {
             >
                 What do you need help with?
             </p>
-            <Link to="/dashboard/faults" className="w-full mt-4 secondary-gradient rounded-lg p-4 flex">
+            <Link to="/app/faults" className="w-full mt-4 secondary-gradient rounded-lg p-4 flex">
                 <FaRegListAlt className="text-white size-8 mt-1" />
                 <div className="flex flex-col ml-4 font-inter">
                     <p className="text-white text-2xl">Error List</p>
                     <p className="text-secondary">Shows common fault codes for your model</p>
                 </div>
             </Link>
-            <Link to="/dashboard/tests" className="w-full mt-4 secondary-gradient rounded-lg p-4 flex">
+            <Link to="/app/tests" className="w-full mt-4 secondary-gradient rounded-lg p-4 flex">
                 <MdOutlineScience className="text-white size-8 mt-1" />
                 <div className="flex flex-col ml-4 font-inter">
                     <p className="text-white text-2xl">Test Mode</p>
                     <p className="text-secondary">Step-by-step instructions to enter diagnostics</p>
                 </div>
             </Link>
-            <Link to="/dashboard/chat" className="w-full mt-4 primary-gradient rounded-lg p-4 flex">
+            <Link to="/app/chat" className="w-full mt-4 primary-gradient rounded-lg p-4 flex">
                 <BsChatLeftText className="text-white size-8 mt-1" />
                 <div className="flex flex-col ml-4 font-inter">
                     <p className="text-white text-2xl">Chat Help</p>
