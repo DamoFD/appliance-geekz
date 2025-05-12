@@ -1,6 +1,12 @@
 <x-app-layout>
     <main class="min-h-screen bg-dark-900 text-white font-inter px-6 pt-32 pb-12 max-w-6xl mx-auto">
-        <div class="bg-[#0e1525] rounded-xl shadow-xl p-8 space-y-6">
+
+        <!-- Admin Nav -->
+        <div class="flex items-center justify-between">
+            <a href="{{ route('admin.waitlist') }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold">Waitlist</a>
+        </div>
+
+        <div class="bg-[#0e1525] rounded-xl shadow-xl p-8 space-y-6 mt-4">
 
             <!-- Header -->
             <div class="flex justify-between items-center">
