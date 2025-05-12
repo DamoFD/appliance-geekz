@@ -58,7 +58,7 @@ const Tests = () => {
                                         <p className="font-bold text-3xl">{step.title}</p>
                                         <p className="text-secondary">{step.description}</p>
                                         <div />
-                                        <Link className="text-[#1796BD] flex items-center cursor-pointer">
+                                        <Link to="/app/chat?test-mode=true" className="text-[#1796BD] flex items-center cursor-pointer">
                                             <p className="underline">Ask about this step</p>
                                             <FaArrowRight className="size-4 ml-2" />
                                         </Link>

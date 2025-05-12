@@ -13,6 +13,7 @@ const Chat = () => {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     const faultCode = query.get('code');
+    const testMode = query.get('test-mode');
 
     const defaultChat = [
         {
@@ -21,6 +22,9 @@ const Chat = () => {
         },
         ...(faultCode
                 ? [{ role: 'user', content: `What does the error code ${faultCode} mean, and what are the causes of this fault?` }]
+                : []),
+        ...(testMode
+                ? [{ role: 'user', content: 'How do I enter diagnostic mode to see error codes and test components?' }]
                 : [])
     ];
 
@@ -32,6 +36,7 @@ const Chat = () => {
     useEffect(() => {
         scrollToBottom();
         if (faultCode) getChat(defaultChat);
+        if (testMode) getChat(defaultChat);
     }, []);
 
     useEffect(() => {
