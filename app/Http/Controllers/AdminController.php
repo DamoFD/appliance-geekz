@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Waitlist;
 
 class AdminController extends Controller
 {
@@ -60,5 +61,11 @@ class AdminController extends Controller
     {
         $user->delete();
         return redirect()->route('admin.index')->with('success', 'User Deleted Successfully');
+    }
+
+    public function waitlist()
+    {
+        $waitlist = Waitlist::all();
+        return view('admin-waitlist', compact('waitlist'));
     }
 }

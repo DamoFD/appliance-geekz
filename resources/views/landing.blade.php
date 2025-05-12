@@ -17,5 +17,16 @@
         </div>
         <img class="absolute top-0 left-0 w-full h-screen object-cover" src={{ asset('images/hero-image.png') }} />
         <div class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-40"></div>
+        @if(session('success'))
+            <div
+                x-data="{ show: true }"
+                x-init="setTimeout(() => show = false, 4000)"
+                x-show="show"
+                x-transition
+                class="fixed bottom-4 left-4 bg-green-600 text-white px-4 py-3 rounded-lg shadow-md"
+            >
+                {{ session('success') }}
+            </div>
+        @endif
     </main>
 </x-app-layout>
