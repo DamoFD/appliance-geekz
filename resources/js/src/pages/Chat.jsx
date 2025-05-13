@@ -140,6 +140,7 @@ const Chat = () => {
                     <button
                         className="absolute bottom-3 right-3 size-8 rounded-full primary-gradient flex items-center justify-center"
                         onClick={() => onClick({ content: input })}
+                        aria-label="Send message"
                     >
                         <FaArrowRight className="text-white" />
                     </button>
