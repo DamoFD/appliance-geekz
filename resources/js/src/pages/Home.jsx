@@ -12,7 +12,7 @@ const Home = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen w-full bg-dark-900 p-8">
+        <div className="min-h-screen w-full bg-dark-900 p-8 md:py-8 md:px-24 lg:py-12 lg:px-[500px]">
             <h1
                 className="font-inter font-bold text-5xl primary-text-gradient"
             >
@@ -26,7 +26,7 @@ const Home = () => {
             <img
               src={BlueSwirl}
               alt="blue swirl"
-              className="w-full mt-4"
+              className="w-full mt-4 lg:w-1/2"
             />
             <p
                 className="text-white font-inter text-lg primary-text-gradient mt-4"

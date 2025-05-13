@@ -14,7 +14,7 @@ const Options = () => {
     }
 
     return (
-        <div className="min-h-screen w-full bg-dark-900 p-8">
+        <div className="min-h-screen w-full bg-dark-900 p-8 lg:py-12 lg:px-[500px]">
             <IoArrowBack onClick={back} className="text-white size-6 cursor-pointer" />
             <h1
                 className="font-inter font-bold text-5xl primary-text-gradient mt-4"
