@@ -102,8 +102,8 @@ const Chat = () => {
     }
 
     return (
-        <div className="min-h-screen w-full bg-dark-900 px-8 pt-10 pb-48 relative">
-            <div className="fixed bg-dark-900 z-[3] top-0 left-0 w-full flex items-center p-4">
+        <div className="min-h-screen w-full bg-dark-900 px-8 pt-10 pb-48 relative lg:px-[500px] lg:py-16">
+            <div className="fixed bg-dark-900 z-[3] top-0 left-0 w-full flex items-center p-4 lg:px-[500px] lg:pt-8 lg:pb-4">
             <IoArrowBack onClick={back} className="text-white size-6 cursor-pointer" />
             </div>
             <div className="w-full mt-4 flex flex-col gap-8">
@@ -122,7 +122,7 @@ const Chat = () => {
                     </div>
                 )}
             </div>
-            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-10/12 z-[3]">
+            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-10/12 z-[3] lg:w-1/2">
                 <textarea
                     className="w-full rounded-lg secondary-gradient text-white font-inter py-4 pl-4 pr-12"
                     rows="3"
