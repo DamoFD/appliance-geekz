@@ -74,8 +74,11 @@ const Faults = () => {
                 setFeedBackVisible(true);
                 setAiUsageId(data.ai_usage_id);
             })
-            .catch(() => {
+            .catch((err) => {
                 setLoading(false);
+                if (err.response.data.error) {
+                    alert(err.response.data.error);
+                }
                 console.error('error fetching faults');
             });
     }

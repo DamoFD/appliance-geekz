@@ -38,8 +38,11 @@ const Tests = () => {
                 setAiUsageId(data.ai_usage_id);
                 setFeedBackVisible(true);
             })
-            .catch(() => {
+            .catch((err) => {
                 setLoading(false);
+                if (err.response.data.error) {
+                    alert(err.response.data.error);
+                }
                 console.error('error fetching test mode');
             });
     }
