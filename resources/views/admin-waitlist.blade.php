@@ -1,4 +1,8 @@
 <x-app-layout>
+
+    @section('title', '📋 Waitlist Manager – Appliance AI Admin Panel')
+    @section('description', '🕓 View and manage beta waitlist signups for Appliance AI. See pending testers, review sign-up info, and control invite access.')
+
     <main class="min-h-screen bg-dark-900 text-white font-inter px-6 pt-32 pb-12 max-w-6xl mx-auto">
 
         <!-- Admin Nav -->
