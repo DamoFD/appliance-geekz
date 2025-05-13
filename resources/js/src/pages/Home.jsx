@@ -1,4 +1,4 @@
-import BlueSwirl from '/public/images/blue-swirl.png';
+import BlueSwirl from '/public/images/blue-swirl.webp';
 import Input from '../components/Input';
 import { MdOutlineBrandingWatermark } from 'react-icons/md';
 import { TbBoxModel2, TbHash } from 'react-icons/tb';

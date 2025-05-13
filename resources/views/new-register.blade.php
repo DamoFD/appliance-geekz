@@ -2,7 +2,7 @@
     <main class="bg-black min-h-screen w-full flex items-center justify-center text-white font-inter px-4">
 
         <div class="bg-[#0e1525] p-8 max-w-md w-full rounded-xl shadow-xl space-y-6 text-center">
-            <img src={{ asset('images/blue-swirl.png') }} alt="AI Icon" class="mx-auto w-16 h-16 rounded-full" />
+            <img src={{ asset('images/blue-swirl.webp') }} alt="AI Icon" class="mx-auto w-16 h-16 rounded-full" />
 
             <h1 class="text-2xl font-bold text-blue-400">We're in Beta</h1>
             <p class="text-gray-300">Appliance AI is invite-only for now. Want to be one of the first testers?</p>
