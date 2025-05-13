@@ -4,7 +4,7 @@
 
             <!-- Logo -->
             <div class="flex justify-center">
-                <img src={{ asset('images/blue-swirl.png') }} alt="AI Logo" class="w-16 h-16 rounded-full" />
+                <img src={{ asset('images/blue-swirl.webp') }} alt="AI Logo" class="w-16 h-16 rounded-full" />
             </div>
 
             <!-- Welcome Text -->

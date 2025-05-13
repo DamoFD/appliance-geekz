@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { IoArrowBack } from "react-icons/io5";
-import BlueSwirl from '/public/images/blue-swirl.png';
+import BlueSwirl from '/public/images/blue-swirl.webp';
 import { FaArrowRight } from "react-icons/fa6";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import axiosClient from '../axios-client';

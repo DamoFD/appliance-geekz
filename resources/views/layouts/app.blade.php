@@ -27,7 +27,7 @@
                     @if (auth()->check())
                         <form method="POST" action={{ route('logout') }}>
                             @csrf
-                            <button type="submit" class="hover:text-primary transition">FAQ</button>
+                            <button type="submit" class="hover:text-primary transition">Logout</button>
                         </form>
                     @else
                         <a href={{ route('login') }} class="hover:text-primary transition">Login</a>

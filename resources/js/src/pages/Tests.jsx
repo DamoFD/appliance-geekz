@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { IoArrowBack } from "react-icons/io5";
 import axiosClient from '../axios-client';
 import Markdown from 'react-markdown';
-import BlueSwirl from '/public/images/blue-swirl.png';
+import BlueSwirl from '/public/images/blue-swirl.webp';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Tests = () => {

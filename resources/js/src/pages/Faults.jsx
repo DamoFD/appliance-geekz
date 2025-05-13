@@ -5,7 +5,7 @@ import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import { useAppliance } from '../contexts/ApplianceContextProvider';
 import { Link } from 'react-router-dom';
-import BlueSwirl from '/public/images/blue-swirl.png';
+import BlueSwirl from '/public/images/blue-swirl.webp';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import {
   FaRegLightbulb,        // idea / electrical issue

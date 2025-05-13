@@ -8,14 +8,14 @@
                     Start Diagnosing
                 </a>
             </div>
-            <div class="-mt-20 relative mx-auto">
-                <img src={{ asset('images/washer.png') }} class="w-full max-w-[500px]"/>
+            <div class="mt-10 relative mx-auto">
+                <img src={{ asset('images/washer.webp') }} class="w-full max-w-[500px]"/>
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hero-chat px-4 py-2">
                     <p class="text-white font-inter text-2xl">The UI isn't turning on.</p>
                 </div>
             </div>
         </div>
-        <img class="absolute top-0 left-0 w-full h-screen object-cover" src={{ asset('images/hero-image.png') }} />
+        <img class="absolute top-0 left-0 w-full h-screen object-cover" src={{ asset('images/hero-image.webp') }} />
         <div class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-40"></div>
         @if(session('success'))
             <div
