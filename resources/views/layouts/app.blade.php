@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Appliance Geekz</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Appliance AI">
+        <link rel="mask-icon" href="{{ asset('images/blue-swirl.webp') }}" color="#FF269E">
+        <meta name="msapplication-TileColor" content="#FF269E">
+        <meta property="og:title" content="@yield('title', 'Appliance AI')" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{{ url()->current() }}" />
+        <meta property="og:description" content="@yield('description', 'Diagnose any appliance instantly')" />
+        <meta name="theme-color" content="#FF269E">
+        <meta property="og:image" content="{{ asset('images/blue-swirl.webp') }}">
+        <meta property="og:image:alt" content="@yield('description', 'Diagnose any appliance instantly')" />
+        <meta property="og:site_name" content="Appliance AI" />
+        <link rel="canonical" href="{{ url()->current() }}" />
+
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="{{ url()->current() }}">
+        <meta property="twitter:title" content="@yield('title', 'Appliance AI')">
+        <meta property="twitter:description" content="@yield('description', 'Appliance AI')">
+        <meta property="twitter:image" content="{{ asset('images/blue-swirl.webp') }}">
+        <link as="image" href="{{ asset('images/blue-swirl.webp') }}">
+
+        <title>@yield('title', 'Appliance AI') | {{ config('app.name', 'Appliance AI') }}</title>
+
+        <meta name="description" content="@yield('description', 'Diagnose any appliance instantly!')" />
+        <link rel="icon" href="{{ asset('images/blue-swirl.webp') }}" type="image/webp">
+        <link rel="shortcut icon" href="{{ asset('images/blue-swirl.webp') }}">
 
         <!-- Styles / Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

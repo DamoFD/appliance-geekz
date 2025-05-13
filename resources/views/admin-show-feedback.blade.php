@@ -11,6 +11,10 @@
 @endphp
 
 <x-app-layout>
+
+    @section('title', '📝 Feedback Detail – Appliance AI Admin')
+    @section('description', '🔍 View individual user feedback with full message content, sender info, and submission timestamp. Manage reports and user input efficiently.')
+
     <main class="min-h-screen bg-dark-900 text-white font-inter px-6 pt-32 pb-12 max-w-6xl mx-auto">
 
         <!-- Admin Nav -->

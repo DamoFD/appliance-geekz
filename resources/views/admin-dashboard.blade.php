@@ -1,4 +1,9 @@
 <x-app-layout>
+
+    @section('title', '📊 Admin Dashboard – Manage Appliance AI 🛠️')
+    @section('description', '👥 Track user activity • 📈 Monitor token usage • 🌐 Review web search requests – all from your Appliance AI admin control panel.')
+
+
     <main class="min-h-screen bg-dark-900 text-white font-inter px-6 pt-32 pb-12 max-w-6xl mx-auto">
 
         <!-- Admin Nav -->

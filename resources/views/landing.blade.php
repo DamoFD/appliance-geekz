@@ -1,4 +1,8 @@
 <x-app-layout>
+
+    @section('title', '🔧 Instantly Diagnose & Fix Any Appliance Problem')
+    @section('description', '⚡ Get fast, expert answers to all your appliance repair questions. Diagnose washers, dryers, refrigerators & more with AI-powered troubleshooting.')
+
     <main>
         <div class="relative z-[2] p-4 md:p-12 lg:p-8 w-full h-screen flex flex-col lg:flex-row lg:items-center justify-center items-start max-w-7xl mx-auto">
             <div class="flex flex-col items-start">

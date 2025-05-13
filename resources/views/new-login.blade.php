@@ -1,4 +1,8 @@
 <x-app-layout>
+
+    @section('title', '🔐 Login – Access Your Appliance AI Account')
+    @section('description', '🚪 Sign in to Appliance AI to troubleshoot appliances, track usage, and get instant repair insights from your personalized dashboard.')
+
     <main class="min-h-screen flex items-center justify-center bg-dark-900 px-4">
         <div class="w-full max-w-sm bg-[#0e1525] p-8 rounded-xl shadow-xl text-white font-inter space-y-6">
 

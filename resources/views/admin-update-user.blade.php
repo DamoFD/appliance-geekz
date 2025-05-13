@@ -1,4 +1,8 @@
 <x-app-layout>
+
+    @section('title', '✏️ Edit User Profile – Appliance AI Admin Panel')
+    @section('description', '⚙️ Update user details, manage roles, and control access within the Appliance AI platform. Keep accounts up to date and secure.')
+
     <main class="min-h-screen flex items-center justify-center bg-dark-900 px-4">
         <div class="w-full max-w-sm bg-[#0e1525] p-8 rounded-xl shadow-xl text-white font-inter space-y-6">
 

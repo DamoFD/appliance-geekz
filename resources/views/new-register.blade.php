@@ -1,4 +1,8 @@
 <x-app-layout>
+
+    @section('title', '⏳ Join the Waitlist – Get Early Access to Appliance AI')
+    @section('description', '🚀 Be among the first to try Appliance AI. Join our beta waitlist to get early access to AI-powered appliance diagnostics and repair tools.')
+
     <main class="bg-black min-h-screen w-full flex items-center justify-center text-white font-inter px-4">
 
         <div class="bg-[#0e1525] p-8 max-w-md w-full rounded-xl shadow-xl space-y-6 text-center">

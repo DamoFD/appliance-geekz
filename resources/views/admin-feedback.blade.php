@@ -1,4 +1,8 @@
 <x-app-layout>
+
+    @section('title', '🗣️ User Feedback – Appliance AI Admin Panel')
+    @section('description', '📬 Review user feedback, suggestions, and bug reports submitted through Appliance AI. Gain insights and improve the assistant experience.')
+
     <main class="min-h-screen bg-dark-900 text-white font-inter px-6 pt-32 pb-12 max-w-6xl mx-auto">
 
         <!-- Admin Nav -->

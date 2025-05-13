@@ -42,6 +42,10 @@
 @endphp
 
 <x-app-layout>
+
+    @section('title', '🧰 My Dashboard – Appliance AI User Panel')
+    @section('description', '🔧 Access your appliance diagnostics, track AI usage, and launch the Appliance AI assistant. Everything you need in one place.')
+
     <main class="min-h-screen bg-dark-900 text-white font-inter px-6 pt-32 pb-12 max-w-4xl mx-auto">
         <div class="bg-[#0e1525] rounded-xl shadow-xl p-8 space-y-6">
 

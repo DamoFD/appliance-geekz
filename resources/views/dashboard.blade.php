@@ -1,4 +1,8 @@
 <x-app-layout>
+
+    @section('title', '🧰 My Dashboard – Appliance AI User Panel')
+    @section('description', '🔧 Access your appliance diagnostics, track AI usage, and launch the Appliance AI assistant. Everything you need in one place.')
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}

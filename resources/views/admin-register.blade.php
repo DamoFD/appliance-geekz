@@ -1,4 +1,8 @@
 <x-app-layout>
+
+    @section('title', '➕ Add New User – Appliance AI Admin Panel')
+    @section('description', '👤 Create and onboard new users directly from the admin dashboard. Assign roles and give access to Appliance AI in one simple step.')
+
     <main class="min-h-screen flex items-center justify-center bg-dark-900 px-4">
         <div class="w-full max-w-sm bg-[#0e1525] p-8 rounded-xl shadow-xl text-white font-inter space-y-6">
 
