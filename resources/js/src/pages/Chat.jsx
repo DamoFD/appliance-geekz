@@ -83,10 +83,12 @@ const Chat = () => {
         })
             .then(({data}) => {
                 setFeedBackVisible(false);
+                setFeedbackLoading(false);
             })
             .catch(() => {
                 console.error('error sending feedback');
                 setFeedBackVisible(false);
+                setFeedbackLoading(false);
             });
     }
 
