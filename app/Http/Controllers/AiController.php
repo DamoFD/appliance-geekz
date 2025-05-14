@@ -152,6 +152,7 @@ class AiController extends Controller
     public function chat(Request $request)
     {
         $validated = $request->validate([
+            'type' => 'max:50',
             'brand' => 'max:50',
             'model' => 'max:50',
             'serial' => 'max:50',
@@ -165,7 +166,26 @@ class AiController extends Controller
                 'model' => 'gpt-4o-mini-search-preview',
                 'web_search_options' => (object) [],
                 'messages' => [
-                    ['role' => 'system', 'content' => "You are an expert appliance repair technician, you are to use the web to find the following answers to my questions. Brand: {$validated['brand']}. Model: {$validated['model']}. Serial: {$validated['serial']}."],
+                    [
+                        'role' => 'system',
+                        'content' => "You are an expert appliance repair technician. The user that you are talking to is an expert technician looking for technical support from you. You are to use the web to find the following answers to the user's questions. Any technical questions, please check manualslib.com for technical manuals. Check searspartsdirect.com for any parts questions and prices. You are NOT to say check the user or service manual. That is YOUR job to provide to the tech asking for guidance. Type: {$validated['type']}. Brand: {$validated['brand']}. Model: {$validated['model']}. Serial: {$validated['serial']}."
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => 'This unit is not working properly',
+                    ],
+                    [
+                        'role' => 'assistant',
+                        'content' => 'For a detailed explanation and testing procedure, you can refer to the service manual or consult the technical documentation.',
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => 'I am a professional appliance repair technician. Do not say refer to any manuals. I have no access to manuals for this unit.',
+                    ],
+                    [
+                        'role' => 'assistant',
+                        'content' => 'I will check the manuals for you from now on, what is your next question?',
+                    ],
                     ...$validated['chat'],
                 ],
             ]);

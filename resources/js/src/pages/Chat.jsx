@@ -54,6 +54,7 @@ const Chat = () => {
         setLoading(true);
 
         axiosClient.post('/chat', {
+            type: appliance.type || 'Unknown',
             brand: appliance.brand || 'Unknown',
             model: appliance.model || 'Unknown',
             serial: appliance.serial || 'Unknown',
