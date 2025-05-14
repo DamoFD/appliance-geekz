@@ -56,7 +56,7 @@ class AiController extends Controller
 
         $prompt = "Use the web and explain to me step by step how to enter this {$validated['brand']} model {$validated['model']} into diagnostic mode, and how to navigate the diagnostics in detail. Use emojis in the title and descriptions to help convey your message.";
 
-        $response = Http::withToken(env('OPENAI_API_KEY'))
+        $response = Http::withToken(config('app.openai_api_key'))
             ->post('https://api.openai.com/v1/chat/completions', [
                 'model' => 'gpt-4o-mini-search-preview',
                 'web_search_options' => (object) [],
@@ -95,7 +95,7 @@ class AiController extends Controller
 
         $prompt = "Return all known fault codes for a {$validated['brand']} model {$validated['model']}.";
 
-        $response = Http::withToken(env('OPENAI_API_KEY'))
+        $response = Http::withToken(config('app.openai_api_key'))
             ->post('https://api.openai.com/v1/chat/completions', [
                 'model' => 'gpt-4o-mini-2024-07-18',
                 'messages' => [
@@ -158,7 +158,7 @@ class AiController extends Controller
             'chat.*.content' => 'required|string|max:10000',
         ]);
 
-        $response = Http::withToken(env('OPENAI_API_KEY'))
+        $response = Http::withToken(config('app.openai_api_key'))
             ->post('https://api.openai.com/v1/chat/completions', [
                 'model' => 'gpt-4o-mini-search-preview',
                 'web_search_options' => (object) [],
