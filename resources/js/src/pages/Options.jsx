@@ -23,6 +23,10 @@ const Options = () => {
             </h1>
             <div className="mt-10 flex flex-col gap-4 font-inter">
                 <div>
+                    <p className="text-secondary text-xl">Type</p>
+                    <p className="primary-text-gradient text-3xl font-bold capitalize">{appliance.type || 'Unknown'}</p>
+                </div>
+                <div>
                     <p className="text-secondary text-xl">Brand</p>
                     <p className="primary-text-gradient text-3xl font-bold">{appliance.brand || 'Unknown'}</p>
                 </div>

@@ -62,6 +62,7 @@ const Faults = () => {
         setLoading(true);
         axiosClient.get(`/faults/`, {
             params: {
+                type: appliance.type,
                 brand: appliance.brand,
                 model: appliance.model,
                 serial: appliance.serial
