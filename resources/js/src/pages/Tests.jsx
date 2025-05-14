@@ -27,6 +27,7 @@ const Tests = () => {
         setLoading(true);
         axiosClient.get(`/test-mode/`, {
             params: {
+                type: appliance.type,
                 brand: appliance.brand,
                 model: appliance.model,
                 serial: appliance.serial

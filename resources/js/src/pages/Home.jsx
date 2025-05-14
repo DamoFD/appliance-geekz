@@ -36,6 +36,30 @@ const Home = () => {
             <div
                 className="flex flex-col w-full gap-4 mt-4"
             >
+                <select value={appliance.type} onChange={(e) => setAppliance({ ...appliance, type: e.target.value })} className="font-inter pr-12 w-full secondary-gradient border-none rounded-lg text-xl text-white">
+                    <option value="">Select Appliance Type</option>
+                    <option value="refrigerator">Refrigerator</option>
+                    <option value="freezer">Freezer</option>
+                    <option value="dishwasher">Dishwasher</option>
+                    <option value="washer">Washer</option>
+                    <option value="gas dryer">Gas Dryer</option>
+                    <option value="electric dryer">Electric Dryer</option>
+                    <option value="washer/dryer combo">Washer/Dryer Combo</option>
+                    <option value="gas range">Gas Range</option>
+                    <option value="electric range">Electric Range</option>
+                    <option value="gas cook top">Gas Cook Top</option>
+                    <option value="electric cook top">Electric Cook Top</option>
+                    <option value="gas wall oven">Gas Wall Oven</option>
+                    <option value="electric wall oven">Electric Wall Oven</option>
+                    <option value="microwave">Microwave</option>
+                    <option value="garbage disposal">Garbage Disposal</option>
+                    <option value="ice maker">Ice Maker</option>
+                    <option value="wine cooler">Wine Cooler</option>
+                    <option value="trash compactor">Trash Compactor</option>
+                    <option value="vent hood">Vent Hood</option>
+                    <option value="barbeque">Barbeque</option>
+                    <option value="coffee maker">Coffee Maker</option>
+                </select>
                 <Input
                     placeholder="Brand"
                     EndAdornment={MdOutlineBrandingWatermark}

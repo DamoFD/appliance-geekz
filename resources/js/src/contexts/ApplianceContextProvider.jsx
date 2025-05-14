@@ -8,6 +8,7 @@ export const useAppliance = () => {
 
 export const ApplianceProvider = ({ children }) => {
     const [appliance, setAppliance] = useState({
+        type: '',
         brand: '',
         model: '',
         serial: '',

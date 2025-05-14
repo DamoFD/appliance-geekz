@@ -18,7 +18,7 @@ const Chat = () => {
     const defaultChat = [
         {
             role: 'assistant',
-            content: 'Hello there, my name is ChatGPT, How can I help with your appliance?  \n **Brand:** ' + (appliance.brand || 'Unknown') + '  \n **Model:** ' + (appliance.model || 'Unknown') + '  \n **Serial:** ' + (appliance.serial || 'Unknown'),
+            content: 'Hello there, my name is ChatGPT, How can I help with your appliance?  \n **Type:** ' + (appliance.type || 'Unknown') + '  \n **Brand:** ' + (appliance.brand || 'Unknown') + '  \n **Model:** ' + (appliance.model || 'Unknown') + '  \n **Serial:** ' + (appliance.serial || 'Unknown'),
         },
         ...(faultCode
                 ? [{ role: 'user', content: `What does the error code ${faultCode} mean, and what are the causes of this fault?` }]

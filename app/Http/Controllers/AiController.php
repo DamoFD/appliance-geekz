@@ -49,12 +49,13 @@ class AiController extends Controller
     public function getTestMode(Request $request)
     {
         $validated = $request->validate([
+            'type' => 'max:50',
             'brand' => 'max:50',
             'model' => 'max:50',
             'serial_number' => 'max:50',
         ]);
 
-        $prompt = "Use the web and explain to me step by step how to enter this {$validated['brand']} model {$validated['model']} into diagnostic mode, and how to navigate the diagnostics in detail. Use emojis in the title and descriptions to help convey your message.";
+        $prompt = "Use the web and explain to me step by step how to enter this {$validated['brand']} {$validated['type']}, model {$validated['model']} into diagnostic mode, and how to navigate the diagnostics in detail. Use emojis in the title and descriptions to help convey your message.";
 
         $response = Http::withToken(config('app.openai_api_key'))
             ->post('https://api.openai.com/v1/chat/completions', [
@@ -88,12 +89,13 @@ class AiController extends Controller
     public function getFaults(Request $request)
     {
         $validated = $request->validate([
+            'type' => 'max:50',
             'brand' => 'max:50',
             'model' => 'max:50',
             'serial_number' => 'max:50',
         ]);
 
-        $prompt = "Return all known fault codes for a {$validated['brand']} model {$validated['model']}.";
+        $prompt = "Return all known fault codes for a {$validated['brand']} {$validated['type']}, model {$validated['model']}.";
 
         $response = Http::withToken(config('app.openai_api_key'))
             ->post('https://api.openai.com/v1/chat/completions', [
