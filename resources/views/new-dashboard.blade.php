@@ -50,9 +50,12 @@
         <div class="bg-[#0e1525] rounded-xl shadow-xl p-8 space-y-6">
 
             <!-- Greeting -->
-            <div>
-                <h1 class="text-3xl font-bold mb-1">Welcome back, {{ $user->name }}!</h1>
-                <p class="text-gray-400 text-sm">Here's your Appliance AI dashboard.</p>
+            <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold mb-1">Welcome back, {{ $user->name }}!</h1>
+                    <p class="text-gray-400 text-sm">Here's your Appliance AI dashboard.</p>
+                </div>
+                <a class="py-2 px-4 bg-blue-600 hover:bg-blue-700 transition-colors ease-in-out duration-200 font-semibold rounded-lg text-lg" href="{{ route('profile.edit') }}">Edit Profile</a>
             </div>
 
             <!-- Usage Summary -->
