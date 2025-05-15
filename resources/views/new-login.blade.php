@@ -24,6 +24,7 @@
                     <input type="email" name="email" placeholder="Enter your email"
                         class="w-full px-4 py-3 bg-[#1a2339] rounded-lg border border-transparent focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500" required>
                 </div>
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
                 {{-- Password Input --}}
                 <div x-data="{ show: false }" class="relative">
@@ -52,6 +53,7 @@
                         </svg>
                     </div>
                 </div>
+                <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
 
                 <div class="flex items-center justify-between text-sm text-gray-400">
