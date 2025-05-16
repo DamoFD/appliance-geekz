@@ -18,7 +18,7 @@ const Chat = () => {
     const defaultChat = [
         {
             role: 'assistant',
-            content: 'Hello there, my name is ChatGPT, How can I help with your appliance?  \n **Type:** ' + (appliance.type || 'Unknown') + '  \n **Brand:** ' + (appliance.brand || 'Unknown') + '  \n **Model:** ' + (appliance.model || 'Unknown') + '  \n **Serial:** ' + (appliance.serial || 'Unknown'),
+            content: 'I see you have a  \n **Type:** ' + (appliance.type || 'Unknown') + '  \n **Brand:** ' + (appliance.brand || 'Unknown') + '  \n **Model:** ' + (appliance.model || 'Unknown') + '  \n **Serial:** ' + (appliance.serial || 'Unknown') + '  \n How may I help?',
         },
         ...(faultCode
                 ? [{ role: 'user', content: `What does the error code ${faultCode} mean, and what are the causes of this fault?` }]
@@ -72,7 +72,7 @@ const Chat = () => {
                 if (err.response.data.error) {
                     alert(err.response.data.error);
                 }
-                console.error('error fetching chat');
+                console.error('error fetching chat: ' + err);
             });
     }
 

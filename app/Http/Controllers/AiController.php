@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\AiUsage;
+use Illuminate\Support\Facades\DB;
 
 class AiController extends Controller
 {
@@ -149,6 +150,44 @@ class AiController extends Controller
         */
     }
 
+    private function createEmbedding($text)
+    {
+        $embedding = Http::withToken(config('app.openai_api_key'))
+            ->post('https://api.openai.com/v1/embeddings', [
+                'model' => 'text-embedding-3-small',
+                'input' => $text,
+            ]
+        );
+
+        return $embedding->json()['data'][0]['embedding'];
+    }
+
+    private function findTopChunks($embeddingVector)
+    {
+        $chunks = DB::table('manual_chunks')->get();
+        $topMatches = collect();
+
+        foreach ($chunks as $chunk) {
+            $chunkVector = json_decode($chunk->embedding, true);
+
+            // Cosine similarity
+            $dotProduct = 0;
+            $normA = 0;
+            $normB = 0;
+
+            for ($i = 0; $i < count($embeddingVector); $i++) {
+                $dotProduct += $embeddingVector[$i] * $chunkVector[$i];
+                $normA += pow($embeddingVector[$i], 2);
+                $normB += pow($chunkVector[$i], 2);
+            }
+
+            $similarity = $dotProduct / (sqrt($normA) * sqrt($normB));
+            $topMatches->push(['chunk' => $chunk, 'score' => $similarity]);
+        }
+
+        return $topMatches->sortByDesc('score')->take(3)->pluck('chunk');
+    }
+
     public function chat(Request $request)
     {
         $validated = $request->validate([
@@ -161,6 +200,14 @@ class AiController extends Controller
             'chat.*.content' => 'required|string|max:10000',
         ]);
 
+        $embeddingVector = $this->createEmbedding(end($validated['chat'])['content']);
+        $topChunks = $this->findTopChunks($embeddingVector);
+
+        $vectorSystemPrompt = "Relevant manual excerpts:\n\n";
+        foreach ($topChunks as $chunk) {
+            $vectorSystemPrompt .= "- " . trim($chunk->text) . "\n\n";
+        }
+
         $response = Http::withToken(config('app.openai_api_key'))
             ->post('https://api.openai.com/v1/chat/completions', [
                 'model' => 'gpt-4o-mini-search-preview',
@@ -168,7 +215,19 @@ class AiController extends Controller
                 'messages' => [
                     [
                         'role' => 'system',
-                        'content' => "You are an expert appliance repair technician. The user that you are talking to is an expert technician looking for technical support from you. You are to use the web to find the following answers to the user's questions. Any technical questions, please check manualslib.com for technical manuals. Check searspartsdirect.com for any parts questions and prices. You are NOT to say check the user or service manual. That is YOUR job to provide to the tech asking for guidance. Type: {$validated['type']}. Brand: {$validated['brand']}. Model: {$validated['model']}. Serial: {$validated['serial']}."
+                        'content' => "You are an expert appliance repair technician. The user that you are talking to is an expert technician looking for technical support from you. You are to use the web and/or the given relevant manual excerpts to find the following answers to the user's questions. Any technical questions, please check manualslib.com for technical manuals. Check searspartsdirect.com for any parts questions and prices. You are NOT to say check the user or service manual. That is YOUR job to provide to the tech asking for guidance. Type: {$validated['type']}. Brand: {$validated['brand']}. Model: {$validated['model']}. Serial: {$validated['serial']}."
+                    ],
+                    [
+                        'role' => 'system',
+                        'content' => $vectorSystemPrompt
+                    ],
+                    [
+                        'role' => 'system',
+                        'content' => 'You are speaking to a professional technician with many years of experience. They have a multimeter and any other tools required to repair a machine.'
+                    ],
+                    [
+                        'role' => 'system',
+                        'content' => 'Do not say refer to any manuals. You must provide information from the provided excerpts or the web.'
                     ],
                     [
                         'role' => 'user',
